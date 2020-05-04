@@ -1,5 +1,6 @@
 import 'package:data_mahasiswa/main.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/painting.dart';
 import 'package:http/http.dart' as http;
 
 class TambahScreen extends StatefulWidget {
@@ -118,7 +119,10 @@ class TemplateTextField extends StatelessWidget {
       child: TextField(
         controller: controller,
         decoration: InputDecoration(
-            labelText: '$label', hintText: 'Silahkan Masukkan $label'),
+            labelText: '$label',
+            hintText: 'Silahkan Masukkan $label',
+            border:
+                OutlineInputBorder(borderRadius: BorderRadius.circular(10))),
       ),
     );
   }
