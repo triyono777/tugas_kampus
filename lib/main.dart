@@ -83,9 +83,16 @@ class _MyHomePageState extends State<MyHomePage> {
           child: Card(
             elevation: 5,
             child: ExpansionTile(
-              title: Text('${listMahasiswaTerbaru[index]['Nama']}'),
+              title: Text(
+                '${listMahasiswaTerbaru[index]['Nama']}',
+                style: TextStyle(fontWeight: FontWeight.bold),
+              ),
+              subtitle: Text('${listMahasiswaTerbaru[index]['NIM']}'),
               leading: CircleAvatar(child: Icon(Icons.person)),
               children: <Widget>[
+                buildItem(
+                    label: 'Nama',
+                    isi: '${listMahasiswaTerbaru[index]['Nama']}'),
                 buildItem(
                     label: 'NIM', isi: '${listMahasiswaTerbaru[index]['NIM']}'),
                 buildItem(
