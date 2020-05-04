@@ -41,7 +41,7 @@ class _MyHomePageState extends State<MyHomePage> {
   List listMahasiswa = [];
   List listMahasiswaTerbaru = [];
 
-  getUsers() async {
+  Future<void> getUsers() async {
     http.Response response = await http.get(url);
     setState(() {
       listMahasiswa = jsonDecode(response.body);
@@ -69,7 +69,8 @@ class _MyHomePageState extends State<MyHomePage> {
         },
         child: Icon(Icons.add),
       ),
-      body: buildListViewMahasiswa(context),
+      body: RefreshIndicator(
+          onRefresh: getUsers, child: buildListViewMahasiswa(context)),
     );
   }
 
@@ -80,48 +81,44 @@ class _MyHomePageState extends State<MyHomePage> {
         return Padding(
           padding: const EdgeInsets.all(8.0),
           child: Card(
-            shape:
-                RoundedRectangleBorder(borderRadius: BorderRadius.circular(50)),
             elevation: 5,
-            child: Row(
+            child: ExpansionTile(
+              title: Text('${listMahasiswaTerbaru[index]['Nama']}'),
+              leading: CircleAvatar(child: Icon(Icons.person)),
               children: <Widget>[
-                Expanded(
-                  flex: 3,
-                  child: Padding(
-                    padding: const EdgeInsets.all(5.0),
-                    child: CircleAvatar(
-                      radius: 30,
-                      child: Icon(Icons.person),
-                    ),
-                  ),
-                ),
-                Expanded(
-                  flex: 8,
-                  child: Column(
-                    children: <Widget>[
-                      Text(
-                        '${listMahasiswaTerbaru[index]['Nama']}',
-                        style: TextStyle(
-                            fontWeight: FontWeight.bold, fontSize: 20),
-                      ),
-                      Text('${listMahasiswaTerbaru[index]['NIM']}'),
-                    ],
-                  ),
-                ),
-                Spacer(),
-                Expanded(
-                  flex: 1,
-                  child: Icon(
-                    Icons.arrow_forward_ios,
-                    color: Theme.of(context).primaryColor,
-                  ),
-                ),
+                buildItem(
+                    label: 'NIM', isi: '${listMahasiswaTerbaru[index]['NIM']}'),
+                buildItem(
+                    label: 'Kelas',
+                    isi: '${listMahasiswaTerbaru[index]['Kelas']}'),
+                buildItem(
+                    label: 'Tgl daftar',
+                    isi: '${listMahasiswaTerbaru[index]['Tgl']}'),
+                buildItem(
+                    label: 'Jam daftar',
+                    isi: '${listMahasiswaTerbaru[index]['Jam']}'),
               ],
             ),
           ),
         );
       },
       itemCount: listMahasiswaTerbaru.length,
+    );
+  }
+
+  Widget buildItem({String label, String isi}) {
+    return Padding(
+      padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 5),
+      child: Row(
+        children: <Widget>[
+          Expanded(child: Text('$label')),
+          Expanded(
+              child: Text(
+            '$isi',
+            style: TextStyle(fontWeight: FontWeight.bold),
+          )),
+        ],
+      ),
     );
   }
 }
