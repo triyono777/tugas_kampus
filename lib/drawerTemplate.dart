@@ -61,6 +61,13 @@ class _TemplateDrawerState extends State<TemplateDrawer> {
                               ),
                               Container(
                                 child: Text(
+                                  '170103170',
+                                  style: TextStyle(fontSize: 13),
+                                ),
+                                width: MediaQuery.of(context).size.width / 2.5,
+                              ),
+                              Container(
+                                child: Text(
                                   'TI17C1',
                                   style: TextStyle(fontSize: 13),
                                 ),
