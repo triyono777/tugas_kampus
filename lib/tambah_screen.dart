@@ -14,13 +14,14 @@ class _TambahScreenState extends State<TambahScreen> {
   final TextEditingController conKelas = TextEditingController();
   final TextEditingController conEmail = TextEditingController();
 
-  String urlTambah = 'http://nurchim.tech/Mobile2020/saveData.php';
+  String urlTambah = 'http://nurchim.tech/mobileC/submitData.php';
+//  String urlTambah = 'http://nurchim.tech/Mobile2020/saveData.php';
   addUser() async {
     final response = await http.post(urlTambah, body: {
-      'nim': conNim.text,
-      'nama': conNama.text,
-      'kelas': conKelas.text,
-      'email': conEmail.text,
+      'NIM': conNim.text,
+      'Nama': conNama.text,
+      'Kelas': conKelas.text,
+      'Email': conEmail.text,
     });
   }
 
